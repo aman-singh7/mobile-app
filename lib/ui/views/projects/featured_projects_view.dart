@@ -5,6 +5,7 @@ import 'package:mobile_app/models/projects.dart';
 import 'package:mobile_app/ui/components/cv_drawer.dart';
 import 'package:mobile_app/ui/components/cv_header.dart';
 import 'package:mobile_app/ui/components/cv_primary_button.dart';
+import 'package:mobile_app/ui/components/cv_text_field.dart';
 import 'package:mobile_app/ui/views/base_view.dart';
 import 'package:mobile_app/ui/views/projects/components/featured_project_card.dart';
 import 'package:mobile_app/ui/views/projects/project_details_view.dart';
@@ -38,6 +39,10 @@ class _FeaturedProjectsViewState extends State<FeaturedProjectsView> {
 
         if (model.isSuccess(model.FETCH_FEATURED_PROJECTS)) {
           for (var project in model.featuredProjects) {
+            if (model.searchInput.isNotEmpty &&
+                !project.attributes.name
+                    .toLowerCase()
+                    .contains(model.searchInput.toLowerCase())) continue;
             _items.add(
               FeaturedProjectCard(
                 project: project,
@@ -83,22 +88,40 @@ class _FeaturedProjectsViewState extends State<FeaturedProjectsView> {
 
         return Scaffold(
           appBar: widget.showAppBar
-              ? AppBar(
-                  title: Text(
-                    AppLocalizations.of(context)!.featured_circuits,
-                    style: TextStyle(
-                      color: CVTheme.appBarText(context),
-                    ),
-                  ),
-                  centerTitle: true,
-                  elevation: 4,
-                  actions: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.search),
-                    ),
-                  ],
-                )
+              ? model.showSearchBar
+                  ? AppBar(
+                      leading: IconButton(
+                        onPressed: () {
+                          model.reset();
+                        },
+                        icon: const Icon(Icons.arrow_back),
+                      ),
+                      leadingWidth: 30,
+                      title: CVTextField(
+                        action: TextInputAction.search,
+                        onChanged: (val) {
+                          model.searchInput = val;
+                        },
+                      ),
+                    )
+                  : AppBar(
+                      title: Text(
+                        AppLocalizations.of(context)!.featured_circuits,
+                        style: TextStyle(
+                          color: CVTheme.appBarText(context),
+                        ),
+                      ),
+                      centerTitle: true,
+                      elevation: 4,
+                      actions: [
+                        IconButton(
+                          onPressed: () {
+                            model.showSearchBar = true;
+                          },
+                          icon: const Icon(Icons.search),
+                        ),
+                      ],
+                    )
               : null,
           drawer: const CVDrawer(),
           body: SingleChildScrollView(
