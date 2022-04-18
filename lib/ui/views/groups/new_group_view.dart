@@ -10,6 +10,7 @@ import 'package:mobile_app/ui/views/base_view.dart';
 import 'package:mobile_app/utils/snackbar_utils.dart';
 import 'package:mobile_app/utils/validators.dart';
 import 'package:mobile_app/viewmodels/groups/new_group_viewmodel.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NewGroupView extends StatefulWidget {
   const NewGroupView({Key? key}) : super(key: key);
@@ -30,7 +31,9 @@ class _NewGroupViewState extends State<NewGroupView> {
     if (Validators.validateAndSaveForm(_formKey)) {
       FocusScope.of(context).requestFocus(FocusNode());
 
-      _dialogService.showCustomProgressDialog(title: 'Creating..');
+      _dialogService.showCustomProgressDialog(
+        title: AppLocalizations.of(context)!.creating,
+      );
 
       await _model.addGroup(_name);
 

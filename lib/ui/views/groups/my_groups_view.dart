@@ -12,6 +12,7 @@ import 'package:mobile_app/ui/views/groups/components/group_mentor_card.dart';
 import 'package:mobile_app/ui/views/groups/edit_group_view.dart';
 import 'package:mobile_app/ui/views/groups/new_group_view.dart';
 import 'package:mobile_app/utils/snackbar_utils.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mobile_app/viewmodels/groups/my_groups_viewmodel.dart';
 
 class MyGroupsView extends StatefulWidget {
@@ -77,7 +78,9 @@ class _MyGroupsViewState extends State<MyGroupsView>
     );
 
     if (_dialogResponse?.confirmed ?? false) {
-      _dialogService.showCustomProgressDialog(title: 'Deleting Group');
+      _dialogService.showCustomProgressDialog(
+        title: AppLocalizations.of(context)!.deleting_group,
+      );
 
       await _model.deleteGroup(groupId);
 

@@ -12,6 +12,7 @@ import 'package:mobile_app/ui/views/base_view.dart';
 import 'package:mobile_app/utils/snackbar_utils.dart';
 import 'package:mobile_app/utils/validators.dart';
 import 'package:mobile_app/viewmodels/projects/edit_project_viewmodel.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditProjectView extends StatefulWidget {
   const EditProjectView({Key? key, required this.project}) : super(key: key);
@@ -117,7 +118,9 @@ class _EditProjectViewState extends State<EditProjectView> {
     if (Validators.validateAndSaveForm(_formKey)) {
       FocusScope.of(context).requestFocus(FocusNode());
 
-      _dialogService.showCustomProgressDialog(title: 'Updating..');
+      _dialogService.showCustomProgressDialog(
+        title: AppLocalizations.of(context)!.updating,
+      );
 
       await _model.updateProject(
         widget.project.id,

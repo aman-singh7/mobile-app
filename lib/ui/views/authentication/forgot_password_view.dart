@@ -11,6 +11,7 @@ import 'package:mobile_app/ui/views/base_view.dart';
 import 'package:mobile_app/utils/snackbar_utils.dart';
 import 'package:mobile_app/utils/validators.dart';
 import 'package:mobile_app/viewmodels/authentication/forgot_password_viewmodel.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({Key? key}) : super(key: key);
@@ -91,7 +92,9 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         !_model.isBusy(_model.SEND_RESET_INSTRUCTIONS)) {
       FocusScope.of(context).requestFocus(FocusNode());
 
-      _dialogService.showCustomProgressDialog(title: 'Sending Instructions');
+      _dialogService.showCustomProgressDialog(
+        title: AppLocalizations.of(context)!.sending_instructions,
+      );
 
       await _model.onForgotPassword(_email);
 

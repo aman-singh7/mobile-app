@@ -11,6 +11,7 @@ import 'package:mobile_app/ui/views/base_view.dart';
 import 'package:mobile_app/utils/snackbar_utils.dart';
 import 'package:mobile_app/utils/validators.dart';
 import 'package:mobile_app/viewmodels/profile/edit_profile_viewmodel.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditProfileView extends StatefulWidget {
   const EditProfileView({Key? key}) : super(key: key);
@@ -107,7 +108,9 @@ class _EditProfileViewState extends State<EditProfileView> {
     if (Validators.validateAndSaveForm(_formKey)) {
       FocusScope.of(context).requestFocus(FocusNode());
 
-      _dialogService.showCustomProgressDialog(title: 'Updating..');
+      _dialogService.showCustomProgressDialog(
+        title: AppLocalizations.of(context)!.updating,
+      );
 
       await _model.updateProfile(
           _name, _educationalInstitute, _country, _subscribed);

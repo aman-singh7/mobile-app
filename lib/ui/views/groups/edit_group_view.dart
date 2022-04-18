@@ -11,6 +11,7 @@ import 'package:mobile_app/ui/views/base_view.dart';
 import 'package:mobile_app/utils/snackbar_utils.dart';
 import 'package:mobile_app/utils/validators.dart';
 import 'package:mobile_app/viewmodels/groups/edit_group_viewmodel.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditGroupView extends StatefulWidget {
   const EditGroupView({Key? key, required this.group}) : super(key: key);
@@ -32,7 +33,9 @@ class _EditGroupViewState extends State<EditGroupView> {
     if (Validators.validateAndSaveForm(_formKey)) {
       FocusScope.of(context).requestFocus(FocusNode());
 
-      _dialogService.showCustomProgressDialog(title: 'Updating..');
+      _dialogService.showCustomProgressDialog(
+        title: AppLocalizations.of(context)!.updating,
+      );
 
       await _model.updateGroup(widget.group.id, _name);
 

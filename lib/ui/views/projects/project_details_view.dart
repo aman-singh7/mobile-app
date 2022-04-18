@@ -19,6 +19,7 @@ import 'package:mobile_app/viewmodels/projects/project_details_viewmodel.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:share/share.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProjectDetailsView extends StatefulWidget {
   const ProjectDetailsView({Key? key, required this.project}) : super(key: key);
@@ -243,7 +244,9 @@ class _ProjectDetailsViewState extends State<ProjectDetailsView> {
     );
 
     if (_dialogResponse?.confirmed ?? false) {
-      _dialogService.showCustomProgressDialog(title: 'Forking');
+      _dialogService.showCustomProgressDialog(
+        title: AppLocalizations.of(context)!.forking,
+      );
 
       await _model.forkProject(_recievedProject.id);
 
@@ -325,7 +328,9 @@ class _ProjectDetailsViewState extends State<ProjectDetailsView> {
       FocusScope.of(context).requestFocus(FocusNode());
       Navigator.pop(context);
 
-      _dialogService.showCustomProgressDialog(title: 'Adding');
+      _dialogService.showCustomProgressDialog(
+        title: AppLocalizations.of(context)!.adding,
+      );
 
       await _model.addCollaborators(_recievedProject.id, _emails);
 
@@ -456,7 +461,9 @@ class _ProjectDetailsViewState extends State<ProjectDetailsView> {
     );
 
     if (_dialogResponse?.confirmed ?? false) {
-      _dialogService.showCustomProgressDialog(title: 'Deleting Project');
+      _dialogService.showCustomProgressDialog(
+        title: AppLocalizations.of(context)!.deleting_project,
+      );
 
       await _model.deleteProject(_recievedProject.id);
 
@@ -506,7 +513,9 @@ class _ProjectDetailsViewState extends State<ProjectDetailsView> {
     );
 
     if (_dialogResponse?.confirmed ?? false) {
-      _dialogService.showCustomProgressDialog(title: 'Deleting..');
+      _dialogService.showCustomProgressDialog(
+        title: AppLocalizations.of(context)!.deleting,
+      );
 
       await _model.deleteCollaborator(_model.project!.id, collaborator.id);
 

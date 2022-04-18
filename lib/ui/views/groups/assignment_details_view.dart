@@ -18,6 +18,7 @@ import 'package:mobile_app/utils/snackbar_utils.dart';
 import 'package:mobile_app/utils/validators.dart';
 import 'package:mobile_app/viewmodels/groups/assignment_details_viewmodel.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AssignmentDetailsView extends StatefulWidget {
   const AssignmentDetailsView({
@@ -253,7 +254,9 @@ class _AssignmentDetailsViewState extends State<AssignmentDetailsView> {
   }
 
   Future<void> addGrade() async {
-    _dialogService.showCustomProgressDialog(title: 'Adding Grades');
+    _dialogService.showCustomProgressDialog(
+      title: AppLocalizations.of(context)!.adding_grades,
+    );
 
     await _model.addGrade(
       _recievedAssignment.id,
@@ -277,7 +280,9 @@ class _AssignmentDetailsViewState extends State<AssignmentDetailsView> {
   }
 
   Future<void> updateGrade(String gradeId) async {
-    _dialogService.showCustomProgressDialog(title: 'Updating Grade');
+    _dialogService.showCustomProgressDialog(
+      title: AppLocalizations.of(context)!.updating_grade,
+    );
 
     await _model.updateGrade(
       gradeId,
@@ -308,7 +313,9 @@ class _AssignmentDetailsViewState extends State<AssignmentDetailsView> {
     );
 
     if (_dialogResponse?.confirmed ?? false) {
-      _dialogService.showCustomProgressDialog(title: 'Deleting Grade');
+      _dialogService.showCustomProgressDialog(
+        title: AppLocalizations.of(context)!.deleting_grade,
+      );
 
       await _model.deleteGrade(gradeId);
 
